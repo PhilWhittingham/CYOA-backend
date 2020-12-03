@@ -21,7 +21,7 @@ type (
 	// PlayerDetails represents the data for a player during a single
 	// playthrough of CYOAdvent.
 	PlayerDetails struct {
-		VisitedWood    bool   `json:"visitedWood"`
+		VisitedForest  bool   `json:"visitedForest"`
 		VisitedVillage bool   `json:"visitedVillage"`
 		VisitedTree    bool   `json:"visitedTree"`
 		VisitedHotel   bool   `json:"visitedHotel"`
@@ -34,8 +34,106 @@ type (
 )
 
 var (
-	adventItems   = map[int]*AdventItem{}
+	adventItems = map[int]*AdventItem{
+		1: &AdventItem{
+			Day:  1,
+			Text: "Cereals best friend to help the day go by milky smooth",
+		},
+		2: &AdventItem{
+			Day:  2,
+			Text: "Grizzly friends. Perfect for a movie night",
+		},
+		3: &AdventItem{
+			Day:  3,
+			Text: "You can't spell \"functional\" without \"fun\"",
+		},
+		4: &AdventItem{
+			Day:  4,
+			Text: "Samin would be proud",
+		},
+		5: &AdventItem{
+			Day:  5,
+			Text: "Schmeckt den Regenbogen",
+		},
+		6: &AdventItem{
+			Day:  6,
+			Text: "Schmeckt den Regenbogen mit leckeres Pesto",
+		},
+		7: &AdventItem{
+			Day:  7,
+			Text: "Test test",
+		},
+		8: &AdventItem{
+			Day:  8,
+			Text: "Test test",
+		},
+		9: &AdventItem{
+			Day:  9,
+			Text: "",
+		},
+		10: &AdventItem{
+			Day:  10,
+			Text: "Ginger sold separately",
+		},
+		11: &AdventItem{
+			Day:  11,
+			Text: "Test test",
+		},
+		12: &AdventItem{
+			Day:  12,
+			Text: "Test test",
+		},
+		13: &AdventItem{
+			Day:  13,
+			Text: "But what if bread... Was sauce...",
+		},
+		14: &AdventItem{
+			Day:  14,
+			Text: "Test test",
+		},
+		15: &AdventItem{
+			Day:  15,
+			Text: "Test test",
+		},
+		16: &AdventItem{
+			Day:  16,
+			Text: "Test test",
+		},
+		17: &AdventItem{
+			Day:  17,
+			Text: "Do you want to build a snowman?",
+		},
+		18: &AdventItem{
+			Day:  18,
+			Text: "We have Nutella at home",
+		},
+		19: &AdventItem{
+			Day:  19,
+			Text: "",
+		},
+		20: &AdventItem{
+			Day:  20,
+			Text: "Test test",
+		},
+		21: &AdventItem{
+			Day:  21,
+			Text: "Test test",
+		},
+		22: &AdventItem{
+			Day:  22,
+			Text: "I searched for \"vegan buchers\" and this is what came up",
+		},
+		23: &AdventItem{
+			Day:  23,
+			Text: "Test test",
+		},
+		24: &AdventItem{
+			Day:  24,
+			Text: "Test test",
+		},
+	}
 	playerDetails = PlayerDetails{
+		VisitedForest:  false,
 		VisitedVillage: false,
 		VisitedTree:    false,
 		VisitedShop:    false,
@@ -76,10 +174,6 @@ func deleteAdventItem(c echo.Context) error {
 	return c.NoContent(http.StatusNoContent)
 }
 
-func getRemainingDays() int {
-	return 1
-}
-
 //----------
 // Handlers - Player
 //----------
@@ -88,9 +182,9 @@ func getPlayerDetails(c echo.Context) error {
 	return c.JSON(http.StatusOK, playerDetails)
 }
 
-func updateVisitedWood(c echo.Context) error {
-	playerDetails.VisitedWood = true
-	return c.JSON(http.StatusOK, playerDetails.VisitedWood)
+func updateVisitedForest(c echo.Context) error {
+	playerDetails.VisitedForest = true
+	return c.JSON(http.StatusOK, playerDetails.VisitedForest)
 }
 
 func updateVisitedVillage(c echo.Context) error {
@@ -143,6 +237,10 @@ func main() {
 	// Middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+	}))
 
 	// Routes
 	//e.POST("/adventItems", createAdventItem)
@@ -152,7 +250,7 @@ func main() {
 	e.DELETE("/adventItems/:id", deleteAdventItem)
 
 	e.GET("/player", getPlayerDetails)
-	e.POST("/player/wood", updateVisitedWood)
+	e.POST("/player/forest", updateVisitedForest)
 	e.POST("/player/village", updateVisitedVillage)
 	e.POST("/player/tree", updateVisitedTree)
 	e.POST("/player/shop", updateVisitedShop)
