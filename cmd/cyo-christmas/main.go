@@ -141,7 +141,7 @@ var (
 		WizardFriend:   false,
 		Cursed:         false,
 		Rested:         false,
-		Location:       "Forest",
+		Location:       "Start",
 	}
 )
 
