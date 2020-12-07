@@ -77,7 +77,7 @@ var (
 		},
 		11: &AdventItem{
 			Day:  11,
-			Text: "Test test",
+			Text: "Enemies of the heir... beware",
 		},
 		12: &AdventItem{
 			Day:  12,
@@ -89,11 +89,11 @@ var (
 		},
 		14: &AdventItem{
 			Day:  14,
-			Text: "Test test",
+			Text: "Anything from the trolly?",
 		},
 		15: &AdventItem{
 			Day:  15,
-			Text: "Test test",
+			Text: "Best (only) Caribbean food in town.",
 		},
 		16: &AdventItem{
 			Day:  16,
@@ -113,11 +113,11 @@ var (
 		},
 		20: &AdventItem{
 			Day:  20,
-			Text: "Test test",
+			Text: "Jelly? Gummy? Bears? Babies? Cola?",
 		},
 		21: &AdventItem{
 			Day:  21,
-			Text: "Test test",
+			Text: "Probably doesn't melt very well",
 		},
 		22: &AdventItem{
 			Day:  22,
@@ -125,11 +125,11 @@ var (
 		},
 		23: &AdventItem{
 			Day:  23,
-			Text: "Test test",
+			Text: "Laces? Lances? Belts?",
 		},
 		24: &AdventItem{
 			Day:  24,
-			Text: "Test test",
+			Text: "Getting board of this",
 		},
 	}
 	playerDetails = PlayerDetails{
@@ -243,7 +243,6 @@ func main() {
 	}))
 
 	// Routes
-	//e.POST("/adventItems", createAdventItem)
 	e.GET("/adventItems", getAllAdventItems)
 	e.GET("/adventItems/:id", getAdventItem)
 	e.PUT("/adventItems/:id", updateAdventItem)
@@ -261,5 +260,5 @@ func main() {
 	e.PUT("/player/location", updateLocation)
 
 	// Start server
-	e.Logger.Fatal(e.Start(":1323"))
+	e.Logger.Fatal(e.Start(":1333"))
 }
