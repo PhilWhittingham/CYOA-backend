@@ -37,27 +37,27 @@ var (
 	adventItems = map[int]*AdventItem{
 		1: &AdventItem{
 			Day:  1,
-			Text: "Cereals best friend to help the day go by milky smooth",
+			Text: "Test test",
 		},
 		2: &AdventItem{
 			Day:  2,
-			Text: "Grizzly friends. Perfect for a movie night",
+			Text: "Test test",
 		},
 		3: &AdventItem{
 			Day:  3,
-			Text: "You can't spell \"functional\" without \"fun\"",
+			Text: "Test test",
 		},
 		4: &AdventItem{
 			Day:  4,
-			Text: "Samin would be proud",
+			Text: "Test test",
 		},
 		5: &AdventItem{
 			Day:  5,
-			Text: "Schmeckt den Regenbogen",
+			Text: "Test test",
 		},
 		6: &AdventItem{
 			Day:  6,
-			Text: "Schmeckt den Regenbogen mit leckeres Pesto",
+			Text: "Test test",
 		},
 		7: &AdventItem{
 			Day:  7,
@@ -69,11 +69,11 @@ var (
 		},
 		9: &AdventItem{
 			Day:  9,
-			Text: "",
+			Text: "Test test",
 		},
 		10: &AdventItem{
 			Day:  10,
-			Text: "Ginger sold separately",
+			Text: "Test test",
 		},
 		11: &AdventItem{
 			Day:  11,
@@ -85,7 +85,7 @@ var (
 		},
 		13: &AdventItem{
 			Day:  13,
-			Text: "But what if bread... Was sauce...",
+			Text: "Test test",
 		},
 		14: &AdventItem{
 			Day:  14,
@@ -101,15 +101,15 @@ var (
 		},
 		17: &AdventItem{
 			Day:  17,
-			Text: "Do you want to build a snowman?",
+			Text: "Test test",
 		},
 		18: &AdventItem{
 			Day:  18,
-			Text: "We have Nutella at home",
+			Text: "Test test",
 		},
 		19: &AdventItem{
 			Day:  19,
-			Text: "",
+			Text: "Test test",
 		},
 		20: &AdventItem{
 			Day:  20,
@@ -121,7 +121,7 @@ var (
 		},
 		22: &AdventItem{
 			Day:  22,
-			Text: "I searched for \"vegan buchers\" and this is what came up",
+			Text: "Test test",
 		},
 		23: &AdventItem{
 			Day:  23,
