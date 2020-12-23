@@ -97,7 +97,7 @@ var (
 		},
 		16: &AdventItem{
 			Day:  16,
-			Text: "Test test",
+			Text: "Doing 24 things is hard",
 		},
 		17: &AdventItem{
 			Day:  17,
