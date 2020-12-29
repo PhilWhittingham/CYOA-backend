@@ -1,4 +1,4 @@
-module github.com/PhilWhittingham/cyo-christmas
+module github.com/PhilWhittingham/CYOA-backend
 
 go 1.15
 

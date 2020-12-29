@@ -1,4 +1,4 @@
-package main
+package api
 
 import (
 	"net/http"
@@ -6,171 +6,39 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+
+	"github.com/PhilWhittingham/CYOA-backend/item"
+	"github.com/PhilWhittingham/CYOA-backend/player"
 )
 
-type (
-	// AdventItem represents a single item in the advent calendar
-	//   NB this is added as a struct for extensibility reasons
-	AdventItem struct {
-		Day  int    `json:"day"`
-		Text string `json:"text"`
-	}
-)
-
-type (
-	// PlayerDetails represents the data for a player during a single
-	// playthrough of CYOAdvent.
-	PlayerDetails struct {
-		VisitedForest  bool   `json:"visitedForest"`
-		VisitedVillage bool   `json:"visitedVillage"`
-		VisitedTree    bool   `json:"visitedTree"`
-		VisitedHotel   bool   `json:"visitedHotel"`
-		VisitedShop    bool   `json:"visitedShop"`
-		WizardFriend   bool   `json:"wizardFriend"`
-		Cursed         bool   `json:"cursed"`
-		Rested         bool   `json:"rested"`
-		Location       string `json:"location"`
-	}
-)
-
-var (
-	adventItems = map[int]*AdventItem{
-		1: &AdventItem{
-			Day:  1,
-			Text: "Test test",
-		},
-		2: &AdventItem{
-			Day:  2,
-			Text: "Test test",
-		},
-		3: &AdventItem{
-			Day:  3,
-			Text: "Test test",
-		},
-		4: &AdventItem{
-			Day:  4,
-			Text: "Test test",
-		},
-		5: &AdventItem{
-			Day:  5,
-			Text: "Test test",
-		},
-		6: &AdventItem{
-			Day:  6,
-			Text: "Test test",
-		},
-		7: &AdventItem{
-			Day:  7,
-			Text: "Test test",
-		},
-		8: &AdventItem{
-			Day:  8,
-			Text: "Test test",
-		},
-		9: &AdventItem{
-			Day:  9,
-			Text: "Test test",
-		},
-		10: &AdventItem{
-			Day:  10,
-			Text: "Test test",
-		},
-		11: &AdventItem{
-			Day:  11,
-			Text: "Test test",
-		},
-		12: &AdventItem{
-			Day:  12,
-			Text: "Test test",
-		},
-		13: &AdventItem{
-			Day:  13,
-			Text: "Test test",
-		},
-		14: &AdventItem{
-			Day:  14,
-			Text: "Test test",
-		},
-		15: &AdventItem{
-			Day:  15,
-			Text: "Test test",
-		},
-		16: &AdventItem{
-			Day:  16,
-			Text: "Test test",
-		},
-		17: &AdventItem{
-			Day:  17,
-			Text: "Test test",
-		},
-		18: &AdventItem{
-			Day:  18,
-			Text: "Test test",
-		},
-		19: &AdventItem{
-			Day:  19,
-			Text: "Test test",
-		},
-		20: &AdventItem{
-			Day:  20,
-			Text: "Test test",
-		},
-		21: &AdventItem{
-			Day:  21,
-			Text: "Test test",
-		},
-		22: &AdventItem{
-			Day:  22,
-			Text: "Test test",
-		},
-		23: &AdventItem{
-			Day:  23,
-			Text: "Test test",
-		},
-		24: &AdventItem{
-			Day:  24,
-			Text: "Test test",
-		},
-	}
-	playerDetails = PlayerDetails{
-		VisitedForest:  false,
-		VisitedVillage: false,
-		VisitedTree:    false,
-		VisitedShop:    false,
-		VisitedHotel:   false,
-		WizardFriend:   false,
-		Cursed:         false,
-		Rested:         false,
-		Location:       "Start",
-	}
-)
+var playerDetails = new(player.Details)
 
 //----------
 // Handlers - Advent Items
 //----------
 
 func getAllAdventItems(c echo.Context) error {
-	return c.JSON(http.StatusOK, adventItems)
+	return c.JSON(http.StatusOK, item.ItemsList)
 }
 
 func getAdventItem(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
-	return c.JSON(http.StatusOK, adventItems[id])
+	return c.JSON(http.StatusOK, item.ItemsList[id])
 }
 
 func updateAdventItem(c echo.Context) error {
-	u := new(AdventItem)
+	u := new(item.Detail)
 	if err := c.Bind(u); err != nil {
 		return err
 	}
 	id, _ := strconv.Atoi(c.Param("id"))
-	adventItems[id].Text = u.Text
-	return c.JSON(http.StatusOK, adventItems[id])
+	item.ItemsList[id].Text = u.Text
+	return c.JSON(http.StatusOK, item.ItemsList[id])
 }
 
 func deleteAdventItem(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
-	delete(adventItems, id)
+	delete(item.ItemsList, id)
 	return c.NoContent(http.StatusNoContent)
 }
 
@@ -223,7 +91,7 @@ func updateRested(c echo.Context) error {
 }
 
 func updateLocation(c echo.Context) error {
-	p := new(PlayerDetails)
+	p := new(player.Details)
 	if err := c.Bind(p); err != nil {
 		return err
 	}
@@ -231,7 +99,9 @@ func updateLocation(c echo.Context) error {
 	return c.JSON(http.StatusOK, playerDetails.Location)
 }
 
-func main() {
+// Initialise the api with routing and variables as necessary
+func Initialise(pd *player.Details) {
+	playerDetails = pd
 	e := echo.New()
 
 	// Middleware
@@ -243,7 +113,6 @@ func main() {
 	}))
 
 	// Routes
-	//e.POST("/adventItems", createAdventItem)
 	e.GET("/adventItems", getAllAdventItems)
 	e.GET("/adventItems/:id", getAdventItem)
 	e.PUT("/adventItems/:id", updateAdventItem)
@@ -261,5 +130,5 @@ func main() {
 	e.PUT("/player/location", updateLocation)
 
 	// Start server
-	e.Logger.Fatal(e.Start(":1323"))
+	e.Logger.Fatal(e.Start(":1333"))
 }
